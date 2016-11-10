@@ -12,25 +12,34 @@ To achieve that, the main thread creates a thread pool and accepts requests. The
 	pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZATION
 
 	void push(queue* queue, int req_fd) {
-    	pthread_mutex_lock(&mutex);
-    	/*push req_fd to queue and increase the size*/
-    	pthread_cond_signal(&cond);
-    	pthread_mutex_unlock(&mutex);
+		pthread_mutex_lock(&mutex);
+		queue_push(queue, req_fd);
+		queue->size++;
+  		pthread_cond_signal(&cond);
+   		pthread_mutex_unlock(&mutex);
 	}
 
-	int pop(queue* queue) {
-    	pthread_mutex_lock(&mutex);
-    	if(!queue->size) pthread_cond_wait(&cond, &mutex);
-    	/*pop a request file descriptor*/
-    	pthread_mutex_unlock(&mutex);
+	int pop(queue* queue) { 
+		pthread_mutex_lock(&mutex); 
+		if(!queue->size) pthread_cond_wait(&cond, &mutex); 
+		queue_pop(queue); 
+		queue->size--; 
+		pthread_mutex_unlock(&mutex);
 	}
 
 ```
 
-Here a if clause is used to check whether queue is empty. Some references in google propose that a while clause is better,
+The code above has a bug:
+Suppose two consumers c1, c2 and a producer p1 work together. When the size of queue is 0, c1 finds the queue is empty and then sleep to wait for a request's arrival. Then a request arrives. P1 push it into queue and sends a singal. Assume c1 is waken up but do not acquire the lock for mutex. At the almost same time, c2 get the lock for mutex, and take the request from queue, leaving the queue empty. Then c1 acquires the lock for mutex, and will try to take request from a empty queue, reasulting in a access vialiation.
+
+The root cause of this bug is that **the function `pthread_cond_wait()` are not atomic**, which consists of two actions: 
+
+1. **waken up by a signal and its state changed to be ready to run**;
+2. **acquire the lock**
+
+To resolve this bug, just replace `if(!queue->size)` with `while(!queue->size)`.
 
 ```
     while(!queue->size) pthread_cond_wait(&cond, &mutex);
 ```
 
-but I don't figure it out now.
