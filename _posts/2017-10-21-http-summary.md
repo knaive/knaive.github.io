@@ -67,13 +67,15 @@ request1.url ==> response1.content
 ```
 
 ---
-## WebSocket
+## [HTML5 WebSocket](https://stackoverflow.com/questions/11077857/what-are-long-polling-websockets-server-sent-events-sse-and-comet)
 ### http实现服务端推送的两种方法：
 #### *long poll*
-- 客户端发送一个http请求，服务器端只有在有结果时才返回响应，否则一直让客户端保持TCP连接并等待响应。就像调用函数，然后阻塞，直到返回结果。
+- 客户端发送一个http请求，服务器端只有在有结果时才返回响应，否则一直让客户端保持TCP连接并等待响应。就像调用函数，然后阻塞，直到返回结果。当客户端收到响应，立即发送新的http请求。
+- 服务器只有在客户端有请求时才发送响应。
 - http对浏览器对同一域名的TCP连接数量有限制
 - 阻塞其他操作
 - 服务器的并发量增加
+- [The Myth of Long Polling](https://blog.baasil.io/why-you-shouldnt-use-long-polling-fallbacks-for-websockets-c1fff32a064a)
 #### *ajax loop*
 - 客户端不断发送http请求，服务器有结果就返回结果，没有结果未生成就返回相应的提示；客户端如果发现响应中包含自己期待的结果，就停止发送请求，否则重复之前的操作。
 - 服务器要不断建立TCP连接，浪费CPU和网络资源
@@ -81,4 +83,4 @@ request1.url ==> response1.content
 ### WebSocket解决了这些问题
 - WebSocket是Html5的技术，应用层协议
 - WebSocket通过向服务器发送Http请求，要求服务器转换到WebSocket协议
-- WebSocket维持TCP连接，等待服务器发送响应。
+- WebSocket维持TCP连接，服务器和客户端可以互相发送消息，服务器不必等客户端发送请求之后才发消息。
