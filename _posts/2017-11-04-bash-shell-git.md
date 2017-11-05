@@ -16,43 +16,46 @@ set -e
 ```
 i=1
 
-# exit status is 1
 j=$(expr $i - 1) 
+echo "exit status is 1"
 
-# exit status is 1
 let "j = $i - 1" 
+echo "exit status is 1"
 
-# exit status is 0
 let  "j = $i - 1" 1 
+echo "exit status is 0"
 ```
+
 - string substitution
+
 ```
 str="a.b.c.d"
 
-# str1 equals to 'a_b.c.d'
 str1=${str/./'-'} 
+echo str1 equals to 'a_b.c.d'
 
-# str1 equals to 'a-b-c-d'
 str2=${str//./'-'}
+echo str1 equals to 'a-b-c-d'
 
 ls='l.s.'
 
-# execute *ls* command to list current directory
 ${ls//./''}
+echo execute *ls* command to list current directory
 ```
 
 - *jq* command
+
 ```
 json='{"name":"list", "values":[{"type":"string", "value":"ok"},{"type":"string", "value":"not found"}]}'
 
-# *list*
 echo $json | jq -r .name
+echo  '*list*'
 
-# values length 2
 echo $json | jq -r .values | jq '. | length'
+echo values length 2
 
-# get the first value: {"type": "string", "value": "ok"}
 echo $json | jq -r .values | jq -r .[0]
+echo 'get the first value: {"type": "string", "value": "ok"}'
 ```
 
 ## Git
