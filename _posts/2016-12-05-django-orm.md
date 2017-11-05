@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Django ORM
+category: web
+tags: web framework
 ---
 
 # query set

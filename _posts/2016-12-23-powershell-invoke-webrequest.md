@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Powershell Invoke-WeqRequest parameter Body
+category: windows
+tags: powershell
 ---
 
 Wanted to use Invoke-WebRequest uploads a binary file by multiple http requests, in each of which one chunk of the original file is pushed to server. First, get the all bytes of the binary file:

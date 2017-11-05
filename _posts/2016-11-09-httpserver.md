@@ -1,6 +1,7 @@
 ---
 layout: post
 title: A simple http server
+category: web
 ---
 
 I tried to build a simple http server. The single threaded version has been finished, which can serve a request once. The next step is to construct a server which can handle many http requests concurrently.

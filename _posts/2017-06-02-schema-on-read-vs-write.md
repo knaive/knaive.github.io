@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Schema on Read vs Schema on Write
+category: data storage
+tags: data storage
 ---
 
 # Schema on Write

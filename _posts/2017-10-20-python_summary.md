@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Python summary
+category: PL
+tags: python
 ---
 
 ## slots

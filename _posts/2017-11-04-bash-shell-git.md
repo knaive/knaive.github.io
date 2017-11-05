@@ -1,6 +1,10 @@
 ---
 layout: post
 title: Bash shell and git
+category: tools
+tags:
+    - bash
+    - git
 ---
 
 ## Bash shell

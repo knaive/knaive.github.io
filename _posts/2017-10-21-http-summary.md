@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Http Summary
+category: network
+tags: http
 ---
 
 ## Http方法的幂等性(Idempotence)
