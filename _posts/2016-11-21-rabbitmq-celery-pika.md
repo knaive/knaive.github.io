@@ -2,9 +2,9 @@
 layout: post
 title: RabbitMQ, Pika and Celery
 published: false
-category: distribued queue
+category: DistribuedQueue
 tags:
-    - distributed queue
+    - DistributedQueue
 ---
 
 # TODO

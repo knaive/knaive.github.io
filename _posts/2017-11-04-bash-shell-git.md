@@ -8,11 +8,12 @@ tags:
 ---
 
 ## Bash shell
-- script exits on error (when command has a non-zero exit status )
+- script exits on error (when command has a non-zero exit status)
 ```
 set -e
 ```
-- use *let* instead of *expr* to do arithmetic operation 
+- use *let* instead of *expr* to do arithmetic operation
+
 ```
 i=1
 

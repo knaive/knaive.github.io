@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Hive vs RDBMS
-category: big data
-tags: big data
+category: BigData
+tags: BigData
 ---
 
 - Hive support **100s of PB** data while RDBMS supports **10s of TB** data

@@ -2,7 +2,7 @@
 layout: post
 title: Django ORM
 category: web
-tags: web framework
+tags: WebFramework
 ---
 
 # query set

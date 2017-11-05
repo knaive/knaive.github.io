@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Coroutines, Generators and Continuations
-category: programming language
-tags: programming language
+category: PL
+tags: PL
 ---
 
 ## Coroutines
