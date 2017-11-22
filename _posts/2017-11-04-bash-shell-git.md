@@ -1,18 +1,18 @@
 ---
 layout: post
-title: Bash shell and git
+title: Bash tips
 category: tools
 tags:
     - bash
-    - git
 ---
 
-## Bash shell
-- script exits on error (when command has a non-zero exit status)
+## Bash tips
+### script exits on error (when command has a non-zero exit status)
 ```
+#!/bin/bash -e
 set -e
 ```
-- use *let* instead of *expr* to do arithmetic operation
+### use *let* instead of *expr* to do arithmetic operation
 
 ```
 i=1
@@ -27,7 +27,7 @@ let  "j = $i - 1" 1
 echo "exit status is 0"
 ```
 
-- string substitution
+- string substitution!! Never use the string substitution in bash **because it behaves differently in different versions**
 
 ```
 str="a.b.c.d"
@@ -35,14 +35,17 @@ str="a.b.c.d"
 str1=${str/./'-'} 
 echo str1 equals to 'a_b.c.d'
 
+str1=$(echo $str | sed -r 's/\./-/')
+
 str2=${str//./'-'}
 echo str1 equals to 'a-b-c-d'
 
-ls='l.s.'
-
-${ls//./''}
-echo execute *ls* command to list current directory
+str="hello"
+strLen=${#str}
+echo "Length of string $str is $strlen"
 ```
+
+- [$var, "$var" and ${var}. $array, $array[@], ${array[@]} and "${array[@]}"](https://stackoverflow.com/questions/18135451/what-is-the-difference-between-var-var-and-var-in-the-bash-shell)
 
 - *jq* command
 
@@ -59,42 +62,18 @@ echo $json | jq -r .values | jq -r .[0]
 echo 'get the first value: {"type": "string", "value": "ok"}'
 ```
 
-## Git
-- unstage the last commit
+for keys containing '-', we have to use the following syntax to abstract the value:
+
 ```
-git reset HEAD^
-```
-- [ undo the command above: git reset HEAD^ ](https://stackoverflow.com/questions/2510276/undoing-git-reset )
-```
-git reset 'HEAD@{1}'
+echo '{"test-key": "value"}' | jq -r '.["test-key"]'
+echo '{"test-key": "value"}' | jq -r '.["test-key"] = "new_value"'
+
 ```
 
-- replace contents in the working dir with those in HEAD
+- *sed*
 ```
-git checkout -- file
-```
+sed '/^export/d' ~/.bash_history
 
-- diff staged files
-```
-git diff --staged
-```
+sed 's/^export.*//' ~/.bash_history
 
-- create a new branch
-```
-git branch NewBranchName
-```
-
-- switch to another branch
-```
-git checkout BranchName
-```
-
-- delete a branch
-```
-git branch -d BranchName
-```
-
-- add alias 'origin' for branch on remote server
-```
-git remote add origin <server>
 ```
