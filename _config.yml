@@ -14,7 +14,7 @@ github_username: knaive
 permalink: /:categories/:year/:month/:day/:title
 
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-highlighter: pygments
+highlighter: rouge
 
 assets: http://knaive.github.io/assets
 baseurl: http://knaive.github.io
