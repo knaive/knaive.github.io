@@ -26,7 +26,7 @@ tags:
 - Assume any code is buggy before you test it
 - UnitTest
 - End-to-End test: from the first input to the final result
-- Test cases should _conver every line of code_
+- Test cases should _cover every line of code_
 - Run tests at the _target environment_
-- Never skip examining a piece of result: the log, the db and the resultant file 
-- Never skip unexpected result even if the final result is right
+- Never skip examining each piece of result: the log, the db and the resultant file 
+- Never skip unexpected results even if the final result is right
