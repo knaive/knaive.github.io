@@ -106,7 +106,9 @@ with FooWrapper() as foo:
 ---
 ## Descriptors
 ### 任何实现了 __get__, __set__ 和 __delete__中至少一个的类，其instance是一个descriptor
+
 ```
+
 class Descr(object):
     def __get__(self, obj, owner):
         pass
@@ -120,8 +122,50 @@ class Foo(object):
 
 foo = Foo()
 foo.name # 等价于 __get__(Foo.name, foo, Foo)
+
 ```
 
+### 使用描述符实现property
+
+```
+# a.f() ==> __get__(A.f, a, A)
+class CustomProperty(object):
+    def __get__(self, obj, owner):
+        print 'custom property'
+        return self.func(obj)
+
+    def __set__(self, obj, value):
+        raise AttributeError('Can not be assigned to {}'.format(value))
+    
+    def __call__(self, func):
+        self.func = func
+        return self
+
+custom_property = CustomProperty()
+
+class Person(object):
+    def __init__(self, name):
+        self._name = name
+    
+    @custom_property
+    def name(self):
+        return self._name
+
+tom = Person('Tom')
+print tom.name
+```
+
+### 使用描述符实现staticmethod
+
+```
+TODO
+```
+
+### 使用描述符实现classmethod
+
+```
+TODO
+```
 
 ---
 ## Meta class
